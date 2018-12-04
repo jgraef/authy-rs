@@ -11,27 +11,6 @@ pub enum ApiResult<T> {
     Err(ApiError)
 }
 
-/*
-impl<T> Into<Result<T, ApiError>> for ApiResult<T> {
-    fn into(self) -> Result<T, ApiError> {
-        match self {
-            ApiResult::Ok(x) => Ok(x),
-            ApiResult::Err(x) => Err(x)
-        }
-    }
-}
-
-
-impl<T> From<ApiResult<T>> for Result<T, ApiError> {
-    fn from(r: ApiResult<T>) -> Self {
-        match r {
-            ApiResult::Ok(x) => Ok(x),
-            ApiResult::Err(x) => Err(x)
-        }
-    }
-}
-*/
-
 impl<T> ApiResult<T> {
     pub fn as_result(self) -> Result<T, ApiError> {
         match self {
