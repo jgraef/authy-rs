@@ -7,7 +7,9 @@ Disclaimer: This crate is not an official Twilio product.
 ## Example
 
 ```rust
-use twilio::authy::{Client, Via};
+extern crate authy_rs;
+
+use authy_rs::authy::{Client, Via};
 use phonenumber::PhoneNumber;
 
 let client = Client::new("<AUTHY API KEY>");
