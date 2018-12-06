@@ -1,5 +1,6 @@
 # authy-rs
 
+<<<<<<< HEAD
 Rust client for the Authy API by [Twilio](https://www.twilio.com). 
 
 Disclaimer: This crate is not an official Twilio product.
