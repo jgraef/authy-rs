@@ -4,7 +4,11 @@ Rust client library for sending SMS with [Twilio](https://www.twilio.com).
 
 Disclaimer: This crate is not an official Twilio product.
 
-Uses reqwest to access the REST API.
+This crate uses features from Rust nightly. To use Rust nightly in your current project run:
+
+```sh
+rustup override set nightly
+```
 
 ## Features:
 
