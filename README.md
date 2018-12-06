@@ -1,7 +1,7 @@
 # twilio-rs
 
 NOTE: There is already a more mature twilio client: https://crates.io/crates/twilio
-THerefore I will probably change this into a client for the Authy API only. Expect the repository to be renamed and SMS support to be removed.
+Therefore I will probably change this into a client for the Authy API only. Expect the repository to be renamed and SMS support to be removed.
 
 Rust client library for sending SMS with [Twilio](https://www.twilio.com).
 
