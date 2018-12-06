@@ -4,12 +4,6 @@ Rust client for the Authy API by [Twilio](https://www.twilio.com).
 
 Disclaimer: This crate is not an official Twilio product.
 
-This crate uses features from Rust nightly. To use Rust nightly in your current project run:
-
-```sh
-rustup override set nightly
-```
-
 ## Example
 
 ```rust
