@@ -1,6 +1,6 @@
-# twilio-rs
+# authy-rs
 
-Rust client library for sending SMS with [Twilio](https://www.twilio.com).
+Rust client for the Authy API by [Twilio](https://www.twilio.com). 
 
 Disclaimer: This crate is not an official Twilio product.
 
@@ -10,36 +10,7 @@ This crate uses features from Rust nightly. To use Rust nightly in your current 
 rustup override set nightly
 ```
 
-## Features:
-
- * Sending SMS
- * Phone number verification
-
-## Examples
-
-### Sending a SMS
-
-```rust
-extern crate twilio;
-extern crate phonenumber;
-
-use twilio::sms::Client;
-
-
-let client = Client::new("<API SID>", "<API AUTH TOKEN>");
-
-let result = client().send_sms(
-            &phonenumber::parse(None, "<FROM PHONE NUMBER>").expect("Can't parse phone number: from"),
-            &phonenumber::parse(None, "<TO PHONE NUMBER>").expect("Can't parse phone number: to"),
-            "Hello World");
-
-match result {
-	Ok(r) => println!("Result:\n{:#?}", r),
-	Err(e) => println!("Error: {}", e.description())
-};
-```
-
-### Verifying a phone number
+## Example
 
 ```rust
 use twilio::authy::{Client, Via};
@@ -62,8 +33,3 @@ else {
 	println!("Verification failed");
 }
 ```
-
-## TODO:
-
- * build in extended error information
-

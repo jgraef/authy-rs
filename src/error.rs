@@ -11,17 +11,6 @@ pub enum ApiResult<T> {
     Err(ApiError)
 }
 
-impl<T> ApiResult<T> {
-    pub fn as_result(self) -> Result<T, ApiError> {
-        match self {
-            ApiResult::Ok(x) => Ok(x),
-            ApiResult::Err(x) => Err(x)
-        }
-    }
-}
-
-
-
 #[derive(Deserialize, Debug)]
 pub struct ApiError {
     pub code: u32,
@@ -63,29 +52,29 @@ impl Into<u32> for ApiError {
 
 
 #[derive(Debug)]
-pub enum TwilioErr {
+pub enum AuthyErr {
     Api(ApiError),
     Http(reqwest::Error)
 }
 
 
-impl Error for TwilioErr {
+impl Error for AuthyErr {
     fn description(&self) -> &str {
         match self {
-            TwilioErr::Api(cause) => cause.description(),
-            TwilioErr::Http(cause) => cause.description(),
+            AuthyErr::Api(cause) => cause.description(),
+            AuthyErr::Http(cause) => cause.description(),
         }
     }
 
     fn source(&self) -> Option<&(Error + 'static)> {
         match self {
-            TwilioErr::Api(cause) => Some(cause),
-            TwilioErr::Http(cause) => Some(cause),
+            AuthyErr::Api(cause) => Some(cause),
+            AuthyErr::Http(cause) => Some(cause),
         }
     }
 }
 
-impl fmt::Display for TwilioErr {
+impl fmt::Display for AuthyErr {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.write_str(self.description())
     }

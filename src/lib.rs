@@ -4,6 +4,8 @@ extern crate phonenumber;
 #[cfg(test)] extern crate dotenv;
 
 
-pub mod sms;
 pub mod error;
-pub mod authy;
+pub mod client;
+
+pub use crate::client::{Client, VerifyResponse, CheckResponse, StatusResponse};
+pub use crate::error::AuthyErr;

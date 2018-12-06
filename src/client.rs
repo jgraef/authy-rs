@@ -2,8 +2,7 @@ use phonenumber::PhoneNumber;
 use reqwest::header::HeaderName;
 use reqwest::RequestBuilder;
 
-use crate::error::{ApiResult, TwilioErr};
-
+use crate::error::{ApiResult, AuthyErr};
 
 
 pub struct Client {
@@ -105,7 +104,7 @@ impl Client {
         }
     }
 
-    fn query<T, S>(&self, rb: RequestBuilder, data: &T) -> Result<S, TwilioErr>
+    fn query<T, S>(&self, rb: RequestBuilder, data: &T) -> Result<S, AuthyErr>
         where T: serde::Serialize,
         for<'de> S: serde::Deserialize<'de>
     {
@@ -114,16 +113,18 @@ impl Client {
         rb.header(x_authy_api_key, self.api_key.clone())
             .form(data)
             .send()
-            .map_err(|e| TwilioErr::Http(e))
+            .map_err(AuthyErr::Http)
             .and_then(|mut r: reqwest::Response| {
                 r.json()
-                    .map_err(|e: reqwest::Error| TwilioErr::Http(e))
-                    .and_then(|x: ApiResult<S>| x.as_result()
-                        .map_err(|e| TwilioErr::Api(e)))
+                    .map_err(AuthyErr::Http)
+                    .and_then(|r: ApiResult<S>| match r {
+                            ApiResult::Ok(x) => Ok(x),
+                            ApiResult::Err(x) => Err(x)
+                        }.map_err(AuthyErr::Api))
             })
     }
 
-    pub fn verify(&self, number: &PhoneNumber, via: Via, code_length: u8, locale: &str) -> Result<VerifyResponse, TwilioErr> {
+    pub fn verify(&self, number: &PhoneNumber, via: Via, code_length: u8, locale: &str) -> Result<VerifyResponse, AuthyErr> {
         self.query::<VerifyRequest, VerifyResponse>(
             self.http.post("https://api.authy.com/protected/json/phones/verification/start"),
             &VerifyRequest {
@@ -135,7 +136,7 @@ impl Client {
                 })
     }
 
-    pub fn check(&self, number: &PhoneNumber, verification_code: u32) -> Result<CheckResponse, TwilioErr> {
+    pub fn check(&self, number: &PhoneNumber, verification_code: u32) -> Result<CheckResponse, AuthyErr> {
         self.query::<CheckRequest, CheckResponse>(
             self.http.get("https://api.authy.com/protected/json/phones/verification/check"),
             &CheckRequest {
@@ -145,7 +146,7 @@ impl Client {
                 })
     }
 
-    pub fn status(&self, uuid: &str) -> Result<StatusResponse, TwilioErr> {
+    pub fn status(&self, uuid: &str) -> Result<StatusResponse, AuthyErr> {
         self.query::<StatusRequest, StatusResponse>(
             self.http.get("https://api.authy.com/protected/json/phones/verification/status"),
             &StatusRequest { uuid }
@@ -156,7 +157,7 @@ impl Client {
 
 #[cfg(test)]
 mod tests {
-    use crate::authy::{Client, Via};
+    use crate::client::{Client, Via};
     use phonenumber::PhoneNumber;
 
     fn setup() -> (Client, PhoneNumber) {

@@ -1,5 +1,5 @@
 [package]
-name = "twilio-rs"
+name = "authy-rs"
 version = "0.1.0"
 authors = ["Janosch Gräf <janosch.graef@cispa.saarland>"]
 edition = "2018"
