@@ -7,5 +7,4 @@ Uses reqwest to access the REST API.
 ## TODO:
 
  * build in extended error information
- * add support for authy
 
