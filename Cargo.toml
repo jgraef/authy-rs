@@ -3,6 +3,14 @@ name = "authy-rs"
 version = "0.1.0"
 authors = ["Janosch Gräf <janosch.graef@cispa.saarland>"]
 edition = "2018"
+description = "A API client for the Twilio Authy REST API."
+repository = "https://github.com/jgraef/authy-rs"
+readme = "README.md"
+keyword = ["authy", "twilio", "phone", "verification"]
+license = "MIT"
+
+[badges]
+gitlab = { repository = "https://github.com/jgraef/authy-rs", branch = "master" }
 
 [dependencies]
 reqwest = "0.9.5"
