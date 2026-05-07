@@ -4,6 +4,10 @@ Rust client for the Authy API by [Twilio](https://www.twilio.com).
 
 Disclaimer: This crate is not an official Twilio product.
 
+# Deprecated
+
+I haven't used this in a long time and not updated anything. Dependabot now detects numerous security issues in dependencies. Thus the crate is now archived.
+
 ## Example
 
 ```rust
